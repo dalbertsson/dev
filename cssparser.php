@@ -14,7 +14,6 @@ $css = "/***************************
          	url('./entypo/entypo.woff') 		format('woff'),
          	url('./entypo/entypo.ttf') 			format('truetype'),
          	url('./entypo/entypo.svg#entypo')	format('svg');
-         	color: #FF9999;
 
 } */
 
@@ -61,7 +60,7 @@ a {
 .wrapper { background: #f8f8f8; margin-top: 0px; margin-bottom: 0px;
 	padding-top: 0; padding-bottom: 50px; 
 	padding-left: 30px; padding-right: 30px;
-	box-shadow: 0 2px 3px rgba(0,0,0,.2) inset;
+	box-shadow: 0 2px 3px rgb(255,23,233,.2) inset;
 	}
 
 .section-spacer {height: 1.5em;}
@@ -1241,11 +1240,13 @@ $insideSelector = true;
 $hasSelector 	= false;
 # ------------------------------
 
-function lookAhead($length = null, $until = null) {
+function lookAhead($length = null, $until = null, $inclusive = false) {
 	global $css, $curPos, $curChar, $arrColors, $insideSelector;
 
-	if($length) return substr($css, $curPos, $length+1);
-	if($until) 	return substr($css, $curPos, strpos($css, $until, $curPos));
+	if($length and $inclusive) 	return substr($css, $curPos, $length+1);
+	if($length and !$inclusive) return substr($css, $curPos+1, $length);
+	if($until and $inclusive) 	return substr($css, $curPos, strpos($css, $until, $curPos));
+	if($until and !$inclusive) 	return substr($css, $curPos+1, strpos($css, $until, $curPos+1) - $curPos);
 }
 
 function stepTo($char) {
@@ -1273,7 +1274,6 @@ function getSelector() {
 	}
 
 	return trim(substr($css, $matchPos, strpos($css, "{", $matchPos)-$matchPos));
-
 }
 
 function getProperty() {
@@ -1303,6 +1303,7 @@ function parse($token) {
 
 	switch($token) {
 		
+		
 		# HEXADECIMALS
 		#-----------------------------------------------------------
 		case "hex" :
@@ -1314,15 +1315,40 @@ function parse($token) {
 			$arrProperties[] 	= getProperty();
 			$arrSelectors[] 	= getSelector();
 
-			if(preg_match("/#[0-9A-f]{6}/", lookAhead(6))) {
-				$arrColors[] = lookAhead(6);
-			} else if(preg_match("/#[0-9A-f]{3}/", lookAhead(3))) {
-				$arrColors[] = lookAhead(3);	
+			if(preg_match("/#[0-9A-f]{6}/", '#' . lookAhead(6))) {
+				$arrColors[] = lookAhead(6, null, true);
+			} else if(preg_match("/#[0-9A-f]{3}/", '#' . lookAhead(3))) {
+				$arrColors[] = lookAhead(3, null, true);	
 			}
 
 			break;
 		#-----------------------------------------------------------
 
+		
+
+		# RGB.
+		#-----------------------------------------------------------
+		case "rgb" :
+
+			# RGBA mode, step ahead one character.
+			if(lookAhead(1)=="a") $curPos++;
+
+			# Next char should be a parenthesis
+			if(lookAhead(1)=="(") {
+				
+				$rgb = lookAhead(null, ")", false);
+				echo $rgb . ' // ';
+				
+				if(preg_match("/\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}(,[0-9\.]{1,5}){0,1}\)/", str_replace(" ", "", $rgb))) echo "MATCH";
+
+				echo '<br>';
+
+			} else {
+				throw new Exception("Invalid rgba declaration at position $curPos.");
+			}
+
+			break;
+		#-----------------------------------------------------------
 
 
 		# COMMENTS, LET'S NOT PARSE THE FUCKERS.
@@ -1383,9 +1409,13 @@ while ($curPos<=strlen($css)) :
 	$count++;
 	$curPos++;
 
+
+
 	if($count>1000000) die('Too much recursion');
 
 endwhile;
+
+exit;
 
 ?>
 
