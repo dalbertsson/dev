@@ -1,0 +1,40 @@
+/* FORMULÄR
+------------------------------------------------------------------------------------------------------------------------------------------- */
+.order-form 					{  }
+.form-item 						{ float: left; margin: 0 0 25px 0; position: relative; background: #bada55;}
+	.form-item.full 			{ float: none; width: 100%; }
+	.form-item.half 			{ width: 50%; }
+	.form-item.third 			{ width: 33%; }
+	.form-item.fourth 			{ width: 25%; }
+
+.order-form label, 				
+	.order-form label a 		{ font-weight: 700; font-size: 13px; text-align: left; color: #343434; margin: 0 0 5px 0;}
+	.order-form label a 		{ color: #6ba3dc; border-bottom: 1px dotted #6ba3dc;}
+
+input 							{ -webkit-transition: box-shadow .3s linear; -moz-transition: all .3s linear !important; }
+.form-field 					{ font-family: 'Open Sans', Helvetica, Arial, sans-serif; width: 85%; font-size: 13px; padding: 6px 12px; border: 1px solid #C0DAF4; border-radius: 3px; box-shadow: inset 0 1px 0px white; background: rgb(248,249,253); background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2Y4ZjlmZCIgc3RvcC1vcGFjaXR5PSIxIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmY2ZjZmMiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+); background: -moz-linear-gradient(top,  rgba(248,249,253,1) 0%, rgba(252,252,252,1) 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(248,249,253,1)), color-stop(100%,rgba(252,252,252,1))); background: -webkit-linear-gradient(top,  rgba(248,249,253,1) 0%,rgba(252,252,252,1) 100%); background: -o-linear-gradient(top,  rgba(248,249,253,1) 0%,rgba(252,252,252,1) 100%); background: -ms-linear-gradient(top,  rgba(248,249,253,1) 0%,rgba(252,252,252,1) 100%); background: linear-gradient(to bottom,  rgba(248,249,253,1) 0%,rgba(252,252,252,1) 100%); filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f8f9fd', endColorstr='#fcfcfc',GradientType=0 ); }
+	.form-field:focus 			{ box-shadow: 0 0 7px rgba(122, 188, 255, .4); }
+.form-item.full .form-field 	{ width: 92%; }
+.form-item.third .form-field 	{ width: 75%; }
+.form-item.fourth .form-field 	{ width: 69%; }
+
+.form-field-error 				{ border: 1px solid #c0392b; }
+.form-item-error-left,
+.form-item-error 				{ display: none; position: absolute; width: 100%; height: 20px; bottom: -27px; left: -12px; text-align: center;}
+.form-item-error-left 			{ text-align: left !important; width: auto !important; left:0 !important;}
+	.form-item-error span 		{ display: inline; *display: inline; zoom: 1; background: #c0392b; color: white; padding: 3px 6px; font-size: 12px; border-radius: 3px; }
+	
+	.form-item-error span:after, 
+	.form-item-error span:before { bottom: 100%; border: solid transparent; content: " "; height: 0; width: 0; position: absolute; pointer-events: none; } 
+	.form-item-error span:after  { border-color: rgba(192, 57, 43, 0); border-bottom-color: #c0392b; border-width: 6px; left: 50%; margin-left: -6px; } 
+	.form-item-error span:before { border-color: rgba(231, 76, 60, 0); border-bottom-color: #e74c3c; border-width: 7px; left: 50%; margin-left: -7px; }
+
+.form-field-help-text 			 { font-size: 11px; color: #999; margin: 5px 0 0 0 !important; padding: 0 !important;}
+
+.order-errors 					{ padding: 20px; background: #fff4f4; border-radius: 3px; border: 1px solid #e6b5b5;}
+/* ------------------------------------------------------------------------------------------------------------------------------------------- */
+
+
+.elm-droppable {
+	border: 1px solid #bada55;
+}

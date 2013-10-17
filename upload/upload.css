@@ -1,0 +1,75 @@
+@charset "utf-8";
+
+body { background: url('gray_jean.png'); font-family: 'Open Sans'; font-weight: 300; color: #333;}
+
+strong { font-weight: 700; color: #999;}
+
+.droppable { font-weight: 700 !important;}
+
+.drag { padding: 40px; }
+
+#dropbox {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+	text-align: center;
+}
+.active {
+	background: rgba(0, 0, 0, 0.2);
+}
+#dropbox h1 {
+	font-family: 'Open Sans', sans-serif; font-weight: 300;
+	font-size: 24px;
+	color: #999;
+	text-align: center;
+	text-shadow: 0 1px 0 rgba(255, 255, 255, 0.5);
+	margin: 300px 0 0 0;
+}
+
+#uploads {
+	margin: 0 auto;
+	width: 960px;
+	padding: 10px;
+	background: #f9f9f9;
+	display: none;
+}
+#uploads:after {
+	clear: both;
+}
+.preview { 
+	background: #FFF;
+	float: left; 
+	width: 190px;
+	height: 190px;
+	border: 1px solid #ddd;
+	padding: 15px;
+	margin: 9px;
+}
+.imageHolder {
+	height: 150px;
+	margin: 0 0 20px 0;
+}
+.imageHolder img {
+	max-width: 100%;
+	max-height: 100%;
+	display: block;
+	margin: 0 auto;
+}
+
+.progressHolder {
+	height: 10px;
+	border: 1px solid #ddd;
+	border-radius: 4px;
+	position: relative;
+}
+
+.progress {
+	position: absolute;
+	top: 0;
+	left: 0;
+	height: 10px;
+	background: #bada55;
+	width: 0;
+}
