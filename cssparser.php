@@ -1245,7 +1245,7 @@ function lookAhead($length = null, $until = null, $inclusive = false) {
 
 	if($length and $inclusive) 	return substr($css, $curPos, $length+1);
 	if($length and !$inclusive) return substr($css, $curPos+1, $length);
-	if($until and $inclusive) 	return substr($css, $curPos, strpos($css, $until, $curPos));
+	if($until and $inclusive) 	return substr($css, $curPos, strpos($css, $until, $curPos - $curPos));
 	if($until and !$inclusive) 	return substr($css, $curPos+1, strpos($css, $until, $curPos+1) - $curPos);
 }
 
@@ -1326,31 +1326,36 @@ function parse($token) {
 
 		
 
-		# RGB.
+		# RGB & RGBA
 		#-----------------------------------------------------------
 		case "rgb" :
 
 			# RGBA mode, step ahead one character.
-			if(lookAhead(1)=="a") $curPos++;
+			if(strtolower(lookAhead(1))=="a") $curPos++;
 
-			# Next char should be a parenthesis
+			# Expecting parenthesis
 			if(lookAhead(1)=="(") {
 				
+				# Fetch up until the next closing parenthesis.
 				$rgb = lookAhead(null, ")", false);
 				echo $rgb . ' // ';
 				
-				if(preg_match("/\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}(,[0-9\.]{1,5}){0,1}\)/", str_replace(" ", "", $rgb))) echo "MATCH";
+				if(preg_match("/\([0-9]{1,3},[0-9]{1,3},[0-9]{1,3}(,[0-9\.]{1,5}){0,1}\)/", str_replace(" ", "", $rgb))) {
 
-				echo '<br>';
+					# Lägg till i array osv här.
+
+					# Stega fram tills efter deklarationen.
+					$curPos = stepTo("(")+1;
+				}
 
 			} else {
-				throw new Exception("Invalid rgba declaration at position $curPos.");
+				throw new Exception("Invalid rgb declaration at position $curPos.");
 			}
 
 			break;
 		#-----------------------------------------------------------
 
-
+		
 		# COMMENTS, LET'S NOT PARSE THE FUCKERS.
 		#-----------------------------------------------------------
 		case "comment" :
@@ -1368,8 +1373,6 @@ function parse($token) {
 $delimiters = array(";", " ", ":", "(", ")", "{", "}");
 $tokens = array(
 	"hex" 		=> "#",
-	"rgba" 		=> "rgba",
-	"hsla" 		=> "hsla",
 	"hsl"		=> "hsl",
 	"rgb"		=> "rgb",
 	"comment" 	=> "/*"
